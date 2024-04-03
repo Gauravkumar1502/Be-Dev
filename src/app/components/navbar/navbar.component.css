@@ -1,0 +1,28 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--size-2);
+
+    background: var(--surface-card);
+    box-shadow: var(--focus-ring);
+    border-radius: var(--size-3);
+    & ul{
+        display: flex;
+        align-items: center;
+        gap: var(--size-2);
+        margin: 0;
+        padding: var(--size-1) 0 ;
+    }
+    & li{
+        list-style: none;
+        /* on hover but not last */
+        & a:hover{
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: 0.5s ease-in-out;
+        }
+    }
+}

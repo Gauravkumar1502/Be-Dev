@@ -1,0 +1,17 @@
+.pointer{
+    cursor: pointer;
+}
+/* every 2nd p */
+.examples > p:nth-child(2n) {
+    border-left: 2px solid var(--surface-border);
+    padding-left: var(--size-0-5);
+    margin-left: var(--size-1);
+}
+li{
+    margin-bottom: var(--size-1);
+}
+.tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-0-5);
+}

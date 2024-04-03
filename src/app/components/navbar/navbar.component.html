@@ -1,0 +1,14 @@
+<nav>
+    <app-logo></app-logo>
+    <ul>
+        <li><a href="/#explore">Explore</a></li>
+        <li><a href="/#developer">Developer</a></li>
+        <li><a routerLink="/problems">Problems</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a routerLink="/login">Login</a></li>
+        <li><a routerLink="/register">Register</a></li>
+        <li>
+            <p-inputSwitch [(ngModel)]="checked" (onChange)="switchTheme($event)"></p-inputSwitch>
+        </li>
+    </ul>
+</nav>

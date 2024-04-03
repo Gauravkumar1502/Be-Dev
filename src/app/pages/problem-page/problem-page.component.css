@@ -1,0 +1,32 @@
+:host, 
+section{
+    height: 100%;
+}
+.panel{
+    width: 100%; 
+    padding: var(--size-0-5);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--surface-border);
+}
+.input-panel{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--size-0-5);
+    & > div{
+        display: flex;
+        gap: var(--size-1);
+        border-bottom: 1px solid var(--surface-border);
+    }
+}
+textarea{
+    resize: none;    
+    border: none;
+    background-color: var(--surface);
+}
+textarea:focus{
+    outline: none;
+}
+h4{
+    margin: var(--size-0-5) 0;
+    cursor: pointer;
+}

@@ -1,0 +1,29 @@
+.stopwatch-container{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    align-items: center;
+    justify-items: center;
+    gap: .1rem;
+    > div{
+        padding: 0 var(--size-0-5);
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--text-color);
+        height: 100%;
+    }
+    *:not(:first-child):hover{
+        cursor: pointer;
+        color: var(--primary-color);
+    }
+    & > *:first-child{
+        border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+    & > *:last-child{
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+}
+p{
+    margin: calc(var(--size-0-5) / 2 ) 0;
+    padding: 0 var(--size-1);
+}

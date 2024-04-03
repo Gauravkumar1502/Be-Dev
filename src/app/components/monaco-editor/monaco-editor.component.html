@@ -1,0 +1,26 @@
+<div class="editor">
+    <div class="editor__header">
+        <!-- Droptdown with programming languages C, C++ and java -->
+        <!-- call changeLanguage meathod with changed value -->
+        <select class="p-dropdown language__selector" 
+        [(ngModel)]="selectedLanguage"
+        (change)="changeLanguage($event)">
+            <option value="c">C</option>
+            <option value="cpp">C++</option>
+            <option value="java">Java</option>
+        </select>
+    </div>
+    <div class="editor__body" #editorBody>
+        <ngx-monaco-editor class="my-code-editor"
+            [options]="{theme: theme, language: selectedLanguage}"
+            (onInit)="onInit($event)"
+            [(ngModel)]="code"
+            >
+        </ngx-monaco-editor>
+    </div>
+    <div class="editor__footer">
+        <p>
+            Ln {{ Ln }} , Col {{ Col }}
+        </p>
+    </div>
+</div>

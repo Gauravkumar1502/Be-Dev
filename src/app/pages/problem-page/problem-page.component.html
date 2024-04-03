@@ -1,0 +1,40 @@
+<section>
+    <!-- add max-height -->
+    <p-splitter [style]="{ height: '100%', 'max-height': '100%'}" 
+    class="splitter" [minSizes]="[30,30]">
+        <ng-template pTemplate>
+            <div class="panel" style="overflow-y: auto;">
+                <app-question
+                [question]="question"
+                ></app-question>
+            </div>
+        </ng-template>
+        <ng-template pTemplate>
+            <p-splitter [minSizes]="[30,30]" [panelSizes]="[60,40]" 
+            layout="vertical">
+                <ng-template pTemplate>
+                    <div class="panel">
+                        <app-monaco-editor
+                            [c11BoilerplateCode]="question.c11BoilerplateCode"
+                            [cppBoilerplateCode]="question.cppBoilerplateCode"
+                            [javaBoilerplateCode]="question.javaBoilerplateCode"
+                            [pythonBoilerplateCode]="question.pythonBoilerplateCode"
+                            >
+                        </app-monaco-editor>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate>
+                    <div class="panel input-panel">
+                        <div>
+                            <h4>Testcase</h4>
+                            <h4>Test Result</h4>
+                        </div>
+                        <textarea class="input"
+                            [(ngModel)]="question.defaultInputs">
+                        </textarea>
+                    </div>
+                </ng-template>
+            </p-splitter>
+        </ng-template>
+    </p-splitter>
+</section>

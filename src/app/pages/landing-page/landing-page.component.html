@@ -1,0 +1,44 @@
+<section>
+    <div>
+        <img src="assets/images/luca-bravo-XJXWbfSo2f0-unsplash.jpg" alt="">
+    </div>
+    <!-- @defer(on viewport; on interaction(explore)) { -->
+    @defer(on viewport; on timer(10s)) {
+        <section id="explore">
+            <app-image-card
+            title="Practice coding, prepare for interviews, and get hired"
+            description="Material 3 is the latest version of Google’s open-source design system. Design and build beautiful, usable products with Material 3.Access the best resources to prepare for your coding interviews, solve real-world problems, and get hired by top companies."
+            imageUrl="assets/images/smiling-man-couch-holding-laptop.jpg"
+            [imageOnLeft]="false">
+            </app-image-card>
+        
+            <app-image-card
+            title="Master Data Structures & Algorithms"
+            description="Learn and practice with interactive problems, visualize algorithms with animations, and track your progress with personalized insights."
+            imageUrl="assets/images/g.jpg"
+            [imageOnLeft]="true">
+            </app-image-card>
+        
+            <app-image-card
+            title="Solve Real-World Problems"
+            description="Practice with problems curated by experts from real-world scenarios. Get detailed explanations and learn the best practices to solve problems efficiently."
+            imageUrl="assets/images/g.jpg"
+            [imageOnLeft]="false">
+            </app-image-card>
+        
+            <app-image-card
+            title="Collaborate with Friends"
+            description="Work together with your friends on coding projects and challenges to enhance your skills. Solve problems from top companies, and get hired by top companies. Get personalized recommendations and prepare for your interviews."
+            imageUrl="assets/images/g.jpg"
+            [imageOnLeft]="true">
+            </app-image-card>
+        </section>
+    }@placeholder {
+        <section>
+            <p-skeleton width="100%" height="150px"></p-skeleton>
+            <p-skeleton width="100%" height="150px"></p-skeleton>
+            <p-skeleton width="100%" height="150px"></p-skeleton>
+            <p-skeleton width="100%" height="150px"></p-skeleton>
+        </section>
+    }
+</section>

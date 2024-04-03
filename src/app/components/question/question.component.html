@@ -1,0 +1,60 @@
+<div class="wrapper">
+    <h1>{{ question.id + ". " + question.title }}</h1>
+    <div class="tags">
+        <p-chip label="{{question.difficulty | toTitleCase}}"></p-chip>
+        <a href="/problem/{{question.id}}/#tags">
+            <p-chip label="Tags"></p-chip>
+        </a>
+        <a href="/problem/{{question.id}}/#companies">
+            <p-chip label="Companies"></p-chip>
+        </a>
+    </div>
+    
+
+    <div>
+        @for (item of question.description.split('\n'); track $index) {
+            <p [innerHTML]="mdParser(item)"></p>
+        }
+    </div>
+    <div class="examples">
+        @for (item of question.examples; track $index) {
+            <p><b>Example {{ $index + 1 }}</b></p>
+            <p>
+                <b>Input:&nbsp;</b> {{ item.input }} <br>
+                <b>Output:&nbsp;</b> {{ item.output }} <br>
+                <b>Explanation:&nbsp;</b> {{ item.explanation }}
+            </p>
+        }
+    </div>
+    <div>
+        <p><b>Constraints:</b></p>
+        <ul>
+            @for (item of question.constraints.split('\n'); track $index) {
+                <li [innerHTML]="mdParser(item)"></li>
+            }
+        </ul>
+    </div>
+    @if (question.extraInfo != null) {
+        <p [innerHTML]="mdParser(question.extraInfo)"></p>
+    }
+    <p-accordion>
+
+        <p-accordionTab header="Tags" id="tags">
+            @for (tag of question.tags.split(','); track $index) {
+                <p-chip [style]="{'margin': '2px 1px'}" label="{{ tag }}"></p-chip>
+            }
+        </p-accordionTab>
+        <p-accordionTab header="Companies" id="companies">
+            @for (comp of question.companies.split(','); track $index) {
+                <p-chip [style]="{'margin': '2px 1px'}" label="{{ comp }}"></p-chip>
+            }
+        </p-accordionTab>
+        @for (hint of question.hints; track $index) {
+            <p-accordionTab header="Hint {{ $index + 1 }}">
+                <p>
+                    {{ hint.hint }}
+                </p>
+            </p-accordionTab>
+        }
+    </p-accordion>
+</div>

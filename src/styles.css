@@ -1,1 +1,98 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@tailwind utilities;
+
+:root {
+    --size-0-5: 0.5rem;
+    --size-1: 1rem;
+    --size-1-5: 1.5rem;
+    --size-2: 2rem;
+    --size-2-5: 2.5rem;
+    --size-3: 3rem;
+    --size-3-5: 3.5rem;
+    --size-4: 4rem;
+    --max-width: 1400px;
+    --min-width: 320px;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body{
+    margin: 0 auto;
+    padding: var(--size-0-5);
+    color: var(--text-color);
+}
+p{
+    line-height: var(--size-1-5);
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--text-color);
+    &:hover{
+        color: var(--text-color);
+    }
+}
+small{
+    color: var(--red-600);
+}
+code {
+    padding: calc(var(--size-0-5)/2) var(--size-0-5);
+    border-radius: var(--border-radius);
+    background-color: var(--surface-200);
+}
+/*
+:root {
+    font-family: "Inter var", sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-variation-settings: normal;
+    --font-family: "Inter var", sans-serif;
+    --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    --surface-a: #1f2937;
+    --surface-b: #111827;
+    --surface-c: rgba(255, 255, 255, 0.03);
+    --surface-d: #424b57;
+    --surface-e: #1f2937;
+    --surface-f: #1f2937;
+    --text-color: rgba(255, 255, 255, 0.87);
+    --text-color-secondary: rgba(255, 255, 255, 0.6);
+    --primary-color: #60a5fa;
+    --primary-color-text: #030712;
+    --surface-0: #111827;
+    --surface-50: #1f2937;
+    --surface-100: #374151;
+    --surface-200: #4b5563;
+    --surface-300: #6b7280;
+    --surface-400: #9ca3af;
+    --surface-500: #d1d5db;
+    --surface-600: #e5e7eb;
+    --surface-700: #f3f4f6;
+    --surface-800: #f9fafb;
+    --surface-900: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --content-padding: 1.25rem;
+    --inline-spacing: 0.5rem;
+    --border-radius: 6px;
+    --surface-ground: #111827;
+    --surface-section: #111827;
+    --surface-card: #1f2937;
+    --surface-overlay: #1f2937;
+    --surface-border: rgba(255, 255, 255, 0.1);
+    --surface-hover: rgba(255, 255, 255, 0.03);
+    --focus-ring: 0 0 0 0.2rem rgba(96, 165, 250, 0.2);
+    --maskbg: rgba(0, 0, 0, 0.4);
+    --highlight-bg: rgba(96, 165, 250, 0.16);
+    --highlight-text-color: rgba(255, 255, 255, 0.87);
+    color-scheme: dark;
+}
+*/

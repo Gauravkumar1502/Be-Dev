@@ -1,0 +1,16 @@
+<div class="stopwatch-container">
+    <!-- <p>{{ timerInSecs }}</p> -->
+    <div>
+        <p>{{ formatTimeInHours() }}</p>
+    </div>  
+    <div>
+        <i class="{{ isPaused ? 'pi pi-play' : 'pi pi-pause' }}"
+            (click)="toggState()">
+        </i>
+    </div>
+    <div>
+        <i class="pi pi-refresh"
+            (click)="resetTimer()">
+        </i>
+    </div>
+</div>

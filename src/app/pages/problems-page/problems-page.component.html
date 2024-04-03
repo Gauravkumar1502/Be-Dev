@@ -1,0 +1,45 @@
+<section>
+    <div class="cards">
+        <div class="card">
+            <img src="assets/images/OIG1.jpg" alt="image">
+            <h2>Compete Online</h2>
+        </div>
+        <div class="card">
+            <img src="assets/images/OIP.jpg" alt="image">
+            <h2>Compete with Friends</h2>
+        </div>
+    </div>
+
+    <div class="tags" [ngClass]="{'overflow-hidden': isCollapsed}">
+        <i class="expand-collapse pi" (click)="isCollapsed = !isCollapsed"
+        [ngClass]="{'pi-angle-double-down': isCollapsed, 'pi-angle-double-up': !isCollapsed}">
+        {{ isCollapsed? 'Expand' : 'Collapse' }}
+        </i>
+        @for (tag of tags; track $index) {
+            <span class="tag">{{ tag }}</span>
+        }
+    </div>
+    
+    <div class="questions">
+        <table matSort (matSortChange)="sortData($event)">
+            <tr>
+                <th mat-sort-header="id">ID</th>
+                <th mat-sort-header="questionTitle">Title</th>
+                <th mat-sort-header="difficulty">Difficulty</th>
+            </tr>
+            @for(question of sortedQuestions; track question.id){
+                <tr routerLink="/problem/{{ question.id }}">
+                    <td>{{ question.id }}</td>
+                    <td class="pointer">{{ question.title }}</td>
+                    <td [ngStyle]="{'color': getColor(question.difficulty)}">
+                        {{ question.difficulty }}
+                    </td>
+                </tr>
+            }@empty {
+                <tr>
+                    <td colspan="5">No data found</td>
+                </tr>
+            }
+        </table>   
+    </div>
+</section> 
