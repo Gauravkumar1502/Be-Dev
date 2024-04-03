@@ -14,6 +14,9 @@ import { TimerComponent } from "./components/timer/timer.component";
     imports: [CommonModule, RouterOutlet, TimerComponent, LogoComponent, NavbarComponent, TimerComponent]
 })
 export class AppComponent {
+runCode() {
+throw new Error('Method not implemented.');
+}
 
   constructor(private router: Router) {
   }

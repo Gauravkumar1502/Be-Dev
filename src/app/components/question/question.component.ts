@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from '../../models/question';
 import { ToTitleCasePipe } from "../../pipes/to-title-case.pipe";
 import { ChipModule } from 'primeng/chip';

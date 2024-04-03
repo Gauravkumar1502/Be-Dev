@@ -9,6 +9,16 @@
             <option value="cpp">C++</option>
             <option value="java">Java</option>
         </select>
+        <div class="outer">
+            <div class="inner" (click)="runCode()">
+                <i class="pi pi-play"></i>
+                <p>Run</p>
+            </div>
+            <div class="inner">
+                <i class="pi pi-check"></i>
+                <p>Submit</p>
+            </div>
+        </div>
     </div>
     <div class="editor__body" #editorBody>
         <ngx-monaco-editor class="my-code-editor"

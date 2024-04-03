@@ -14,24 +14,25 @@
             layout="vertical">
                 <ng-template pTemplate>
                     <div class="panel">
-                        <app-monaco-editor
-                            [c11BoilerplateCode]="question.c11BoilerplateCode"
-                            [cppBoilerplateCode]="question.cppBoilerplateCode"
-                            [javaBoilerplateCode]="question.javaBoilerplateCode"
-                            [pythonBoilerplateCode]="question.pythonBoilerplateCode"
-                            >
+                        <app-monaco-editor [question]="question">
                         </app-monaco-editor>
                     </div>
                 </ng-template>
                 <ng-template pTemplate>
                     <div class="panel input-panel">
                         <div>
-                            <h4>Testcase</h4>
-                            <h4>Test Result</h4>
+                            <h4 (click)="isTestcase = true">Testcase</h4>
+                            <h4 (click)="isTestcase = false">Test Result</h4>
                         </div>
-                        <textarea class="input"
+                        @if (isTestcase) {
+                            <textarea class="input"
                             [(ngModel)]="question.defaultInputs">
                         </textarea>
+                        }@else {
+                            <div (getCode) = "onCodeChange()">
+                                Test Result
+                            </div>
+                        }
                     </div>
                 </ng-template>
             </p-splitter>

@@ -17,7 +17,11 @@ import { FormsModule } from '@angular/forms';
     imports: [FormsModule, RouterOutlet, CommonModule, RouterLink,SplitterModule, CardModule, MonacoEditorComponent, QuestionComponent]
 })
 export class ProblemPageComponent {
+    onCodeChange() {
+        console.log("onCodeChange called");
+    }
     problemId: number;
+    isTestcase: boolean = true;
     // empty initialization question
     question: Question = {
         id : 0,
@@ -55,15 +59,4 @@ export class ProblemPageComponent {
             }
         });
     }
-    ngOnChanges(changes: SimpleChanges): void {
-        if(changes['question.defaultInputs'] && changes['question'].currentValue) {
-            this.updateLines();
-        }
-    }
-    updateLines() {
-        console.log("updateLines called");
-        for (let i = 1; i <= this.question.defaultInputs.split('\n').length; i++) {
-            this.lines += i.toString() + '\n';
-        }
-      }
 }
