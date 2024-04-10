@@ -9,38 +9,11 @@ section, main{
     height: 100%;
 }
 nav{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: calc(var(--size-0-5)/2) var(--size-2);
+    display: flex;
+    gap: var(--size-1);
+    justify-content: space-between;
+    padding: calc(var(--size-0-5)) var(--size-2);
     background: var(--surface-card);
     box-shadow: var(--focus-ring);
     border-radius: var(--size-3);
-}
-.outer{
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: center;
-    gap: calc(var(--size-0-5) / 2 );
-    & *:hover{
-        color: var(--primary-color);
-    }
-    & > *{
-        padding: 0 var(--size-1);
-        border: 1px solid var(--text-color);
-    }
-    & > *:first-child{
-        border-radius: var(--border-radius) 0 0 var(--border-radius);
-    }
-    & > *:last-child{
-        border-radius: 0 var(--border-radius) var(--border-radius) 0;
-    }
-}
-.inner{
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: var(--size-0-5);
-}
-p{
-    margin: calc(var(--size-0-5) / 2 ) 0;
 }

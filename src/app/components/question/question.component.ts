@@ -24,6 +24,7 @@ export class QuestionComponent {
     cppBoilerplateCode: '',
     pythonBoilerplateCode: '',
     defaultInputs: '',
+    javaCode: '',
     createdAt: '',
     updatedAt: '',
     extraInfo: '',

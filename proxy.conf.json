@@ -1,0 +1,7 @@
+{
+    "/api": {
+      "target": "https://api.jdoodle.com",
+      "secure": false,
+      "changeOrigin": true
+    }
+}

@@ -25,10 +25,12 @@ export class QuestionService {
   }
 
   runCode(language: string, code: string, defaultInputs: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/code/run`, {
+    const payload = {
       language: language,
       code: code,
-      defaultInputs: defaultInputs
-    });
+      defaultInputs: defaultInputs,
+    };
+
+    return this.http.post(`${this.baseUrl}/code/run`, payload);
   }
 }

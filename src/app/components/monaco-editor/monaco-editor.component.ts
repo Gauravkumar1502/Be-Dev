@@ -5,6 +5,10 @@ import {DropdownModule} from 'primeng/dropdown';
 import { ThemeService } from '../../services/theme.service';
 import { Question } from '../../models/question';
 import { QuestionService } from '../../services/question.service';
+import { JdoodleService } from '../../services/jdoodle.service';
+import { catchError, finalize, tap, throwError } from 'rxjs';
+import { TestCase } from '../../models/TestCase';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-monaco-editor',
@@ -28,7 +32,7 @@ import { QuestionService } from '../../services/question.service';
 })
 export class MonacoEditorComponent {
   languages: string[] = ['c', 'cpp', 'java', 'python'];
-  selectedLanguage: string = 'c';
+  selectedLanguage: string = 'java';
   theme: string = 'vs-dark';
   editor: any;
   code: string = '';
@@ -46,21 +50,30 @@ export class MonacoEditorComponent {
     cppBoilerplateCode : '',
     pythonBoilerplateCode : '',
     defaultInputs : '',
+    javaCode : '',
     createdAt : '',
     updatedAt : '',
     extraInfo : '',
     hints : [],
     examples : []
-};
-  @Input() cppBoilerplateCode = '';
-  @Input() javaBoilerplateCode = '';
-  @Input() pythonBoilerplateCode = '';
+  };
   Ln: number = 1;
   Col: number = 1;
+  isLoading: boolean = false;
+  result = {
+    output: '',
+    statusCode: '',
+    memory: '',
+    cpuTime: '',
+    compilationStatus: '',
+    projectKey: '',
+  };
+  TestCases: TestCase[] = [];
 
   constructor(private themeService: ThemeService,
     private cdr: ChangeDetectorRef,
-    private questionService: QuestionService) {
+    private questionService: QuestionService,
+    private dataService: DataService) {
     this.theme = this.themeService.getThemeFromLocalStorage() === 'dark' ? 'vs-dark' : 'light';
   }
   ngOnChanges() {
@@ -105,14 +118,46 @@ export class MonacoEditorComponent {
     }
   }
   runCode() {
-    this.questionService.runCode(this.selectedLanguage, this.code, this.question.defaultInputs)
-      .subscribe({
-        next: (data) => {
-          console.log(data);
-        },
-        error: (error) => {
-          console.log(error);
+    this.isLoading = true;
+    this.questionService.runCode(this.selectedLanguage, (this.question.javaCode + "\n" + this.code), this.question.defaultInputs)
+      .pipe(
+        tap(data => console.log(data)),
+        catchError(error => {
+          console.error(error);
+          return throwError(() => error); // Re-throw for error handling
+        }),
+        finalize(() => this.isLoading = false)
+      ).subscribe(
+        (data) => {
+          this.result = data;
+          if(this.result.output.includes("error:") || this.result.cpuTime === null || this.result.memory === null) {
+            this.dataService.updateError(this.result.output);
+            this.dataService.updateTestCases([]);
+            this.cdr.detectChanges();
+          }else {
+            this.modifyTestCases(this.result);
+            this.dataService.updateTestCases(this.TestCases);
+            this.dataService.updateMemoryUsed(+this.result.memory);
+            this.dataService.updateCpuTime(+this.result.cpuTime);
+            this.dataService.updateError('');
+            this.cdr.detectChanges();
+          }
         }
-      });
+      );
+
+  }
+  modifyTestCases(result: { output: string; statusCode: string; memory: string; cpuTime: string; compilationStatus: string; projectKey: string; }) {
+    this.TestCases = [];
+    console.log("result.output", result.output);
+    result.output.split('\n').forEach((element: string, index: number) => {
+      let splitString = element.split('::');
+      let testCase: TestCase = {
+        input: splitString[0],
+        output: splitString[1],
+        expected: splitString[2],
+        isPassed: splitString[1] === splitString[2] ? true : false
+      };
+      this.TestCases.push(testCase);
+    });
   }
 }

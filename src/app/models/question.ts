@@ -14,6 +14,7 @@ export interface Question{
     cppBoilerplateCode: string;
     pythonBoilerplateCode: string;
     defaultInputs: string;
+    javaCode: string;
     createdAt: string;
     updatedAt: string;
     extraInfo: string;
