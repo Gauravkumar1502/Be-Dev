@@ -21,8 +21,8 @@ throw new Error('Method not implemented.');
   constructor(private router: Router) {
   }
   isProblemPage() {
-    // problems -> false | problem -> true
-    let isProblemPage = this.router.url.match(/problem\/\d+/) ? true : false;
+    // let isProblemPage = this.router.url.match(/problem\/\d+/) ? true : false;
+    let isProblemPage = this.router.url.match(/problem\/\d+/) || this.router.url.match(/compete-online/) ? true : false;
     return isProblemPage;
   }
   ngOnInit() {

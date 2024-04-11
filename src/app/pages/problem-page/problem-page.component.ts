@@ -22,7 +22,7 @@ export class ProblemPageComponent {
     onCodeChange() {
         console.log("onCodeChange called");
     }
-    problemId: number;
+    problemId: any;
     isTestcase: boolean = true;
     // empty initialization question
     question: Question = {
@@ -57,16 +57,26 @@ export class ProblemPageComponent {
     }
     ngOnInit() {
         this.problemId = this.route.snapshot.params['id'];
-        console.log(this.problemId);
-        this.questionService.getAllQuestionsById(this.problemId)
-        .subscribe({
-            next: (data) => {
-                this.question = data;
-            },
-            error: (error) => {
-                console.log(error);
-            }
-        });
+        if(this.problemId == 'compete-online') {
+            this.questionService.getRandomQuestion().subscribe({
+                next: (data) => {
+                    this.question = data;
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        }else {
+            this.questionService.getQuestionsById(this.problemId)
+            .subscribe({
+                next: (data) => {
+                    this.question = data;
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        }
         this.dataService.testCases$.subscribe((testCases) => {
             this.isAllTestCasesPassed = testCases.every((testCase: any) => testCase.isPassed);
             this.testCaseLength = testCases.length;

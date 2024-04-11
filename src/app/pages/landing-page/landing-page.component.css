@@ -2,7 +2,7 @@ section{
     display: grid;
     gap: var(--size-2);
     & div{
-        height: 60vh;
+        height: 70vh;
     }
 }
 .overlay{
@@ -12,7 +12,8 @@ section{
         height: 100%;
         aspect-ratio: 16/9;
         border-radius: var(--size-2);
-        filter: blur(3px);
+        filter: brightness(0.4) blur(3px);
+        /* make image little darker */
     }
     & h1{
         position: absolute;

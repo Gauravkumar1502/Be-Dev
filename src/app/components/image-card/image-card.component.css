@@ -4,6 +4,8 @@
     grid-template-columns: 2fr 1fr;
     gap: var(--size-3);
     border-radius: var(--border-radius);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: var(--size-2);
     & > div {
         border-radius: calc(4 * var(--border-radius));
         padding: 0 var(--size-1);
@@ -24,7 +26,7 @@ img{
     grid-area: b;
     width: 100%;
     height: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
+    aspect-ratio: 16/10;
+    /* object-fit: cover; */
     border-radius: var(--border-radius);
 }

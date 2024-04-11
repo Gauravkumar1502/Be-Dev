@@ -1,0 +1,47 @@
+Be Dev User Manual
+
+Introduction: Welcome to Be Dev! This user manual will guide you through the exciting world of software development and coding challenges on web platform. Get ready to experience the thrill of coding as you solve problems, build projects, and enhance your programming skills. This manual will help you get started and become a coding champion.
+
+System and Software Requirements:
+•	Visual Studio Code (or any code editor of your choice)
+•	Node.js and npm (Node Package Manager)
+•	Angular CLI (Command Line Interface)
+•	Git Version Control System
+•	Web Browser (Chrome, Firefox, Safari, or Edge)
+•   Java 17 or higher
+•   Spring Boot
+•   MySQL Server
+•   WebSocket's
+
+Installation:
+1.	Ensure that your system meets the minimum requirements.
+2.	Download the project's source code from the provided GitHub repository: https://github.com/Gauravkumar1502/Be-Dev.git
+3.	Extract the downloaded files to your computer.
+4.	Open Project in your code editor.
+5.	Install all the required dependencies using npm install command.
+9.	Before running the project, make sure that MySQL server is up and running.
+10.	Open the MySQL Workbench and create a new schema named "be_dev".
+11.	Import the database schema from the provided SQL file.
+12.	Make sure that the WebSocket server is running.
+13.	Open a terminal and navigate to the backend project.
+14.	Run the backend project using mvn spring-boot:run command.
+15.	Open another terminal and navigate to the frontend project.
+16.	Run the frontend project using ng serve command.
+17.	Open your web browser and navigate to http://localhost:4200 to access the Be Dev application.
+
+Troubleshooting:
+•	If you encounter any issues during the installation or setup process, refer to the troubleshooting section in the GitHub repository or reach out to the project's developer for assistance or contact us through the GitHub repository or email provided in the project documentation.
+
+Feedback and Support:
+•	We value your feedback! If you have any suggestions, questions, or concerns regarding the project, feel free to contact us through the GitHub repository or email provided in the project documentation.
+
+Get Ready to Code! Thank you for choosing Be Dev. Get ready to dive into the world of software development, coding challenges, and web applications. Enhance your programming skills, build exciting projects, and become a coding champion. Good luck and happy coding!
+
+
+https://leetcode.com/
+https://www.hackerrank.com/
+https://codesignal.com/
+https://www.codewars.com/
+https://www.topcoder.com/
+https://www.codechef.com/
+https://www.hackerearth.com/

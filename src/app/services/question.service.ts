@@ -9,15 +9,19 @@ import { Question } from '../models/question';
 })
 export class QuestionService {
   private baseUrl = 'http://localhost:8080/api';
-  // private baseUrl = 'https://cc60-2405-201-5012-3821-50e4-2e69-e263-530a.ngrok-free.app/api/question';
+  // private baseUrl = 'https://797e-2405-201-5012-3821-4856-f41d-2f3c-8d5a.ngrok-free.app';
   constructor(private http: HttpClient) { }
 
   getQuestionTitlesList(): Observable<QuestionTitle[]> {
     return this.http.get<QuestionTitle[]>(`${this.baseUrl}/question/titles`);
   }
 
-  getAllQuestionsById(id: number): Observable<Question> {
+  getQuestionsById(id: number): Observable<Question> {
     return this.http.get<Question>(`${this.baseUrl}/question/find?id=${id}`);
+  }
+
+  getRandomQuestion(): Observable<Question> {
+    return this.http.get<Question>(`${this.baseUrl}/question/random`);
   }
 
   toString(question: Question): string {
