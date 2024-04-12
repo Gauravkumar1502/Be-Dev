@@ -27,7 +27,8 @@
                         </div>
                         @if (isTestcase) {
                             <textarea class="input"
-                            [(ngModel)]="question.defaultInputs">
+                            [(ngModel)]="question.defaultInputs"
+                            (input)="onDefaultInputs($event.target)">
                         </textarea>
                         }@else {
                             <div style="display: flex; flex-direction: column;">

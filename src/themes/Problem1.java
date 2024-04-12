@@ -1,1 +1,29 @@
-import java.util.*;\npublic class Problem1{\n    public static int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> map = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            if (map.containsKey(complement)) {\n                return new int[] { map.get(complement), i };\n            }\n            map.put(nums[i], i);\n        }\n        throw new IllegalArgumentException(\"No two sum solution\");\n    }\n    public static void main(String[] args) {\n        try (Scanner reader = new Scanner(System.in)) {\n            // read from console while there is input\n            while (reader.hasNext()) {\n                int[] nums = Arrays.stream(reader.nextLine().replace(\"[\", \"\").replace(\"]\", \"\").split(\",\")).mapToInt(Integer::parseInt).toArray();\n                int target = Integer.parseInt(reader.nextLine());\n                validateTestCase(nums, target);\n            }\n        }\n    }\n    \n    public static void validateTestCase(int[] nums, int target) {\n        int[] expected = twoSum(nums, target);\n        int[] userOutput = new Solution().twoSum(nums, target);\n        System.out.println(Arrays.toString(userOutput)+\",\"+Arrays.toString(expected)+\",\"+Arrays.equals(userOutput, expected));\n    }\n}\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> map = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            if (map.containsKey(complement)) {\n                return new int[] { map.get(complement), i };\n            }\n            map.put(nums[i], i);\n        }\n        return new int[]{0,1};\n    }\n}
+import java.util.*;
+public class Problem1{
+                public static int[] twoSum(int[] nums, int target) {
+                    Map<Integer, Integer> map = new HashMap<>();
+                    for (int i = 0; i < nums.length; i++) {
+                        int complement = target - nums[i];
+                        if (map.containsKey(complement)) {
+                            return new int[] { map.get(complement), i };
+            }
+            map.put(nums[i], i);
+        }
+        throw new IllegalArgumentException(\"No two sum solution\");
+    }
+    public static void main(String[] args) {
+                    try (Scanner reader = new Scanner(System.in)) {
+                        // read from console while there is input
+                        while (reader.hasNext()) {
+                            int[] nums = Arrays.stream(reader.nextLine().replace(\"[\", \"\").replace(\"]\", \"\").split(\",\")).mapToInt(Integer::parseInt).toArray();
+                int target = Integer.parseInt(reader.nextLine());
+                validateTestCase(nums, target);
+            }
+        }
+    }
+    public static void validateTestCase(int[] nums, int target) {
+                    int[] expected = twoSum(nums, target);
+                    int[] userOutput = new Solution().twoSum(nums, target);
+                    System.out.println((\"Nums= \"+Arrays.toString(nums)+\"/nTarget= \"+target) + \"::\" + Arrays.toString(userOutput) + \"::\" + Arrays.toString(expected));
+    }
+}

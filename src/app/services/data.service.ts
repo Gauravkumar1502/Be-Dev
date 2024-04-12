@@ -39,6 +39,7 @@ export class DataService {
   constructor() { }
   updateQuestion(question: Question) {
     this.questionSubject.next(question);
+    console.log(question);
   }
   updateTestCases(testCases: TestCase[]) {
     this.testCasesSubject.next(testCases);

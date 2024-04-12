@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { TabViewModule } from 'primeng/tabview';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
     selector: 'app-problem-page',
@@ -19,9 +20,6 @@ import { TabViewModule } from 'primeng/tabview';
     imports: [FormsModule, RouterOutlet, CommonModule, RouterLink,SplitterModule, CardModule, MonacoEditorComponent, QuestionComponent, TabViewModule]
 })
 export class ProblemPageComponent {
-    onCodeChange() {
-        console.log("onCodeChange called");
-    }
     problemId: any;
     isTestcase: boolean = true;
     // empty initialization question
@@ -46,21 +44,24 @@ export class ProblemPageComponent {
         examples : []
     };
     testCases$: any;
+    questionObservable: any;
     testCaseLength: number = 0;
     isAllTestCasesPassed: boolean = true;
     runtime: number = 0;
     memory: number = 0;
     errorString: string = '';
-    constructor(private questionService: QuestionService, private route: ActivatedRoute, private dataService: DataService) { 
+    constructor(private questionService: QuestionService, private route: ActivatedRoute, private dataService: DataService, private websocketService: WebsocketService) { 
         this.problemId = this.route.snapshot.params['id'];
         this.testCases$ = this.dataService.testCases$;
+        this.questionObservable = this.dataService.question$;
     }
     ngOnInit() {
         this.problemId = this.route.snapshot.params['id'];
         if(this.problemId == 'compete-online') {
             this.questionService.getRandomQuestion().subscribe({
                 next: (data) => {
-                    this.question = data;
+                    // this.question = data;
+                    this.dataService.updateQuestion(data);
                 },
                 error: (error) => {
                     console.log(error);
@@ -70,7 +71,8 @@ export class ProblemPageComponent {
             this.questionService.getQuestionsById(this.problemId)
             .subscribe({
                 next: (data) => {
-                    this.question = data;
+                    // this.question = data;
+                    this.dataService.updateQuestion(data);
                 },
                 error: (error) => {
                     console.log(error);
@@ -90,5 +92,11 @@ export class ProblemPageComponent {
         this.dataService.error$.subscribe((error) => {
             this.errorString = error;
         });
+        this.dataService.question$.subscribe((question) => {
+            this.question = question;
+        });
+    }
+    onDefaultInputs(arg0: any) {
+        this.dataService.updateQuestion(this.question);
     }
 }
