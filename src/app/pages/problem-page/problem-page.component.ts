@@ -11,17 +11,19 @@ import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { TabViewModule } from 'primeng/tabview';
 import { WebsocketService } from '../../services/websocket.service';
+import { DialogModule } from 'primeng/dialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SkeletonModule } from 'primeng/skeleton';
+
 
 @Component({
     selector: 'app-problem-page',
     standalone: true,
     templateUrl: './problem-page.component.html',
     styleUrl: './problem-page.component.css',
-    imports: [FormsModule, RouterOutlet, CommonModule, RouterLink,SplitterModule, CardModule, MonacoEditorComponent, QuestionComponent, TabViewModule]
+    imports: [FormsModule, RouterOutlet, SkeletonModule, CommonModule, ProgressSpinnerModule, DialogModule, RouterLink,SplitterModule, CardModule, MonacoEditorComponent, QuestionComponent, TabViewModule]
 })
 export class ProblemPageComponent {
-    problemId: any;
-    isTestcase: boolean = true;
     // empty initialization question
     question: Question = {
         id : 0,
@@ -43,6 +45,8 @@ export class ProblemPageComponent {
         hints : [],
         examples : []
     };
+    problemId: any;
+    isTestcase$: any;
     testCases$: any;
     questionObservable: any;
     testCaseLength: number = 0;
@@ -50,23 +54,31 @@ export class ProblemPageComponent {
     runtime: number = 0;
     memory: number = 0;
     errorString: string = '';
-    constructor(private questionService: QuestionService, private route: ActivatedRoute, private dataService: DataService, private websocketService: WebsocketService) { 
+    visible: boolean = false;
+    constructor(private questionService: QuestionService,
+        private route: ActivatedRoute,
+        private dataService: DataService,
+        private websocketService: WebsocketService) { 
         this.problemId = this.route.snapshot.params['id'];
         this.testCases$ = this.dataService.testCases$;
         this.questionObservable = this.dataService.question$;
+        this.isTestcase$ = this.dataService.isTestcase$;
     }
     ngOnInit() {
+        let qID: number = 0;
         this.problemId = this.route.snapshot.params['id'];
         if(this.problemId == 'compete-online') {
-            this.questionService.getRandomQuestion().subscribe({
-                next: (data) => {
-                    // this.question = data;
+            this.visible = true;
+            this.websocketService.connect();
+            this.websocketService.listen('room-message').subscribe((response) => {
+                console.log(`Question id: ${response}`);
+                qID = response as number;
+                this.questionService.getQuestionsById(qID).subscribe((data) => {
                     this.dataService.updateQuestion(data);
-                },
-                error: (error) => {
-                    console.log(error);
-                }
+                    this.visible = false;
+                });
             });
+            console.log(`Problem id: ${qID}`);
         }else {
             this.questionService.getQuestionsById(this.problemId)
             .subscribe({
@@ -95,8 +107,18 @@ export class ProblemPageComponent {
         this.dataService.question$.subscribe((question) => {
             this.question = question;
         });
+        this.dataService.isTestcase$.subscribe((isTestcase) => {
+            this.isTestcase$ = isTestcase;
+            console.log(`Is Testcase: ${this.isTestcase$}`);
+        });
     }
     onDefaultInputs(arg0: any) {
         this.dataService.updateQuestion(this.question);
+    }
+    switchIsTestcase(bool: boolean) {
+        this.dataService.updateIsTestcase(bool);
+    }
+    getIsTestcase() {
+        return this.isTestcase$;
     }
 }

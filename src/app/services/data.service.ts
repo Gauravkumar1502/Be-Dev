@@ -31,15 +31,16 @@ export class DataService {
   private memoryUsedSubject = new BehaviorSubject<number>(0);
   private cpuTimeSubject = new BehaviorSubject<number>(0);
   private errorSubject = new BehaviorSubject<string>('');
+  private isTestcaseSubject = new BehaviorSubject<boolean>(true);
   question$ = this.questionSubject.asObservable();
   testCases$ = this.testCasesSubject.asObservable();
   memoryUsed$ = this.memoryUsedSubject.asObservable();
   cpuTime$ = this.cpuTimeSubject.asObservable();
   error$ = this.errorSubject.asObservable();
+  isTestcase$ = this.isTestcaseSubject.asObservable();
   constructor() { }
   updateQuestion(question: Question) {
     this.questionSubject.next(question);
-    console.log(question);
   }
   updateTestCases(testCases: TestCase[]) {
     this.testCasesSubject.next(testCases);
@@ -52,5 +53,8 @@ export class DataService {
   }
   updateError(error: string) {
     this.errorSubject.next(error);
+  }
+  updateIsTestcase(isTestcase: boolean) {
+    this.isTestcaseSubject.next(isTestcase);
   }
 }

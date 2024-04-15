@@ -35,3 +35,15 @@ h4{
     border-radius: var(--border-radius);
     background-color: var(--surface-200);
 }
+.h_skeleton{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--size-0-5);
+}
+.v_skeleton{
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--size-0-5);
+}

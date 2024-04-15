@@ -18,12 +18,14 @@
     </div>
     <div class="examples">
         @for (item of question.examples; track $index) {
-            <p><b>Example {{ $index + 1 }}</b></p>
-            <p>
-                <b>Input:&nbsp;</b> {{ item.input }} <br>
-                <b>Output:&nbsp;</b> {{ item.output }} <br>
-                <b>Explanation:&nbsp;</b> {{ item.explanation }}
-            </p>
+            <p><strong>Example {{ $index + 1 }}</strong></p>
+            <div>
+                <pre><strong>Input:&nbsp;</strong> {{ item.input }}</pre> <br>
+                <pre><strong>Output:&nbsp;</strong> {{ item.output }}</pre> <br>
+                @if (item.explanation !== null && item.explanation !== '') {
+                    <pre><strong>Explanation:&nbsp;</strong> {{ item.explanation }}</pre>
+                }
+            </div>
         }
     </div>
     <div>

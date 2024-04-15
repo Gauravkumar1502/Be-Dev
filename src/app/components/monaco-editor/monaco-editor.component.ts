@@ -143,7 +143,7 @@ export class MonacoEditorComponent {
           }
         }
       );
-
+      this.dataService.updateIsTestcase(false);
   }
   modifyTestCases(result: { output: string; statusCode: string; memory: string; cpuTime: string; compilationStatus: string; projectKey: string; }) {
     this.TestCases = [];

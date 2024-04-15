@@ -27,7 +27,11 @@ export class AppComponent {
     });
   }
   setBodyHeight() {
-    if(this.router.url.match(/problem\/\d+/) || this.router.url.match(/login/) || this.router.url.match(/register/) || this.router.url.match(/forgot-password/)) {
+    if(this.router.url.match(/problem\/\d+/) || 
+    this.router.url.match(/login/) || 
+    this.router.url.match(/register/) || 
+    this.router.url.match(/forgot-password/) ||
+    this.router.url.match(/problem\/compete-online/)) {
       document.getElementById('body')?.style.setProperty('height', '100vh');
     } else {
       document.getElementById('body')?.style.setProperty('height', 'auto');

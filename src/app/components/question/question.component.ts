@@ -32,14 +32,14 @@ export class QuestionComponent {
     examples: []
   }
   constructor() { }
-  
+
   mdParser(mdString: string): string {
     // Handle bold and italic
     mdString = mdString.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     mdString = mdString.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
     // Handle code block
-    mdString = mdString.replace(/`([^`]+)`/g, '<code>$1</code>');
+    mdString = mdString.replace(/`([^`]+)`/g, '<code><strong>$1</strong></code>');
     return mdString;
   }
 }

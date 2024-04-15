@@ -103,7 +103,6 @@ export class ProblemsPageComponent {
   constructor(private questionService: QuestionService) {
     
     this.sortedQuestions = this.questionTitles.slice();
-    console.log("in constructor" + this.questionTitles);
   }
   ngAfterViewInit() {
     this.questionService.getQuestionTitlesList().subscribe({

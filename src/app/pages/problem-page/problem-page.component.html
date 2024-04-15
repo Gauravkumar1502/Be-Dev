@@ -1,8 +1,17 @@
 <section>
     <!-- add max-height -->
     <!-- [style]="{ height: '100%', 'max-height': '100%'}"  -->
+    <p-dialog header="Waiting for other user" [(visible)]="visible" [modal]="true" [draggable]="false" [resizable]="false">
+        <p>
+            Please wait for other user to join the room to start the contest.
+        </p>
+        <div style="display: grid; place-items: center;">
+            <p-progressSpinner [style]="{width: '50px', height: '50px'}" ariaLabel="loading"></p-progressSpinner>
+        </div>
+    </p-dialog>
+    @defer (when (question.id > 0)){
     <p-splitter 
-    class="splitter" [minSizes]="[30,30]">
+    class="splitter" [minSizes]="[30,30]" [panelSizes]="[45,55]">
         <ng-template pTemplate>
             <div class="panel" style="overflow-y: auto;">
                 <app-question
@@ -11,7 +20,7 @@
             </div>
         </ng-template>
         <ng-template pTemplate>
-            <p-splitter [minSizes]="[30,30]" [panelSizes]="[40,60]" 
+            <p-splitter [minSizes]="[30,30]" [panelSizes]="[50,50]" 
             layout="vertical">
                 <ng-template pTemplate>
                     <div class="panel">
@@ -22,10 +31,10 @@
                 <ng-template pTemplate>
                     <div class="panel input-panel">
                         <div>
-                            <h4 (click)="isTestcase = true">Testcase</h4>
-                            <h4 (click)="isTestcase = false">Test Result</h4>
+                            <h4 (click)="switchIsTestcase(true)">Test Case</h4>
+                            <h4 (click)="switchIsTestcase(false)">Output</h4>
                         </div>
-                        @if (isTestcase) {
+                        @if (getIsTestcase()) {
                             <textarea class="input"
                             [(ngModel)]="question.defaultInputs"
                             (input)="onDefaultInputs($event.target)">
@@ -62,11 +71,11 @@
                                                 <h4>Input:</h4>
                                                 <div class="bark-box">
                                                     @for (item of item.input.split('/n'); track $index) {
-                                                        <p>{{ item }}</p>
+                                                        <pre>{{ item }}</pre>
                                                     }
                                                 </div>
-                                                <h4>Output:</h4><div class="bark-box"> {{ item.output }}</div>
-                                                <h4>Expected:</h4><div class="bark-box"> {{ item.expected }}</div>
+                                                <h4>Output:</h4><div class="bark-box"><pre> {{ item.output }}</pre></div>
+                                                <h4>Expected:</h4><div class="bark-box"><pre> {{ item.expected }}</pre></div>
                                               </div>
                                         </p-tabPanel>
                                     </p-tabView>
@@ -78,4 +87,15 @@
             </p-splitter>
         </ng-template>
     </p-splitter>
+    }@placeholder {
+        <div class="h_skeleton">
+            <!-- <p>1</p>
+            <p>2</p> -->
+            <p-skeleton width="100%" height="100%"></p-skeleton>
+            <div class="v_skeleton">
+                <p-skeleton width="100%" height="100%"></p-skeleton>
+                <p-skeleton width="100%" height="100%"></p-skeleton>
+            </div>
+        </div>
+    }
 </section>
