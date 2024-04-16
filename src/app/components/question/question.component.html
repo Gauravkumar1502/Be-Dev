@@ -23,7 +23,11 @@
                 <pre><strong>Input:&nbsp;</strong> {{ item.input }}</pre> <br>
                 <pre><strong>Output:&nbsp;</strong> {{ item.output }}</pre> <br>
                 @if (item.explanation !== null && item.explanation !== '') {
-                    <pre><strong>Explanation:&nbsp;</strong> {{ item.explanation }}</pre>
+                    <span>
+                            <strong>Explanation:&nbsp;</strong> 
+                            <span [innerHTML]="mdParser(item.explanation)"></span>
+                    </span>
+                    
                 }
             </div>
         }

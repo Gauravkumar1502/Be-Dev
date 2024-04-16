@@ -269,6 +269,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "https://gauravkumar1502.github.io/Be-Dev/",
               "budgets": [
                 {
                   "type": "initial",
