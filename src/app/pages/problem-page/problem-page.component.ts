@@ -70,7 +70,7 @@ export class ProblemPageComponent {
         if(this.problemId == 'compete-online') {
             this.visible = true;
             this.websocketService.connect();
-            this.websocketService.listen('room-message').subscribe((response) => {
+            this.websocketService.listen('assign-question-id').subscribe((response) => {
                 console.log(`Question id: ${response}`);
                 qID = response as number;
                 this.questionService.getQuestionsById(qID).subscribe((data) => {

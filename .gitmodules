@@ -1,3 +1,6 @@
 [submodule "Be-Dev-JPA-Service"]
 	path = Be-Dev-JPA-Service
 	url = https://github.com/Gauravkumar1502/Be-Dev-JPA-Service.git
+[submodule "Be-Dev-WebSocket-Server"]
+	path = Be-Dev-WebSocket-Server
+	url = https://github.com/Gauravkumar1502/Be-Dev-WebSocket-Server.git
