@@ -1,12 +1,16 @@
 <section>
     <!-- add max-height -->
     <!-- [style]="{ height: '100%', 'max-height': '100%'}"  -->
-    <p-dialog header="Waiting for other user" [(visible)]="visible" [modal]="true" [draggable]="false" [resizable]="false">
+    <p-dialog [header]="pDialogHeader" [(visible)]="visible" [modal]="true" [draggable]="false" [resizable]="false">
         <p>
-            Please wait for other user to join the room to start the contest.
+            {{ pDialogMessage }}
         </p>
         <div style="display: grid; place-items: center;">
-            <p-progressSpinner [style]="{width: '50px', height: '50px'}" ariaLabel="loading"></p-progressSpinner>
+            @if(pDialogHeader === 'Opponent disconnected' || pDialogHeader === 'You Lost' || pDialogHeader === 'You Won') {
+                <button pButton pRipple label="OK" (click)="redirectToProblems()"></button>
+            }@else {
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}" ariaLabel="loading"></p-progressSpinner>
+            }
         </div>
     </p-dialog>
     @defer (when (question.id > 0)){

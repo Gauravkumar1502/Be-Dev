@@ -22,4 +22,8 @@ export class WebsocketService {
     });
   }
 
+  emit(eventName: string, data: any) {
+    this.socket.emit(eventName, data);
+  }
+
 }

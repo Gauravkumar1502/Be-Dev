@@ -2,7 +2,7 @@ import { Component, SimpleChanges } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 import { MonacoEditorComponent } from "../../components/monaco-editor/monaco-editor.component";
 import { QuestionService } from '../../services/question.service';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Question } from '../../models/question';
 import { QuestionComponent } from "../../components/question/question.component";
 import { CardModule } from 'primeng/card';
@@ -14,6 +14,7 @@ import { WebsocketService } from '../../services/websocket.service';
 import { DialogModule } from 'primeng/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     standalone: true,
     templateUrl: './problem-page.component.html',
     styleUrl: './problem-page.component.css',
-    imports: [FormsModule, RouterOutlet, SkeletonModule, CommonModule, ProgressSpinnerModule, DialogModule, RouterLink,SplitterModule, CardModule, MonacoEditorComponent, QuestionComponent, TabViewModule]
+    imports: [FormsModule, RouterOutlet, SkeletonModule, CommonModule, ButtonModule, ProgressSpinnerModule, DialogModule, RouterLink,SplitterModule, CardModule, MonacoEditorComponent, QuestionComponent, TabViewModule]
 })
 export class ProblemPageComponent {
     // empty initialization question
@@ -55,8 +56,11 @@ export class ProblemPageComponent {
     memory: number = 0;
     errorString: string = '';
     visible: boolean = false;
+    pDialogHeader: string = 'Waiting for other user';
+    pDialogMessage: string = 'Please wait for other user to join the room to start the competition';
     constructor(private questionService: QuestionService,
         private route: ActivatedRoute,
+        private router: Router,
         private dataService: DataService,
         private websocketService: WebsocketService) { 
         this.problemId = this.route.snapshot.params['id'];
@@ -67,7 +71,7 @@ export class ProblemPageComponent {
     ngOnInit() {
         let qID: number = 0;
         this.problemId = this.route.snapshot.params['id'];
-        if(this.problemId == 'compete-online') {
+        if(this.problemId === 'compete-online') {
             this.visible = true;
             this.websocketService.connect();
             this.websocketService.listen('assign-question-id').subscribe((response) => {
@@ -78,7 +82,22 @@ export class ProblemPageComponent {
                     this.visible = false;
                 });
             });
-            console.log(`Problem id: ${qID}`);
+            this.websocketService.listen('opponent-disconnected').subscribe((response) => {
+                console.log(`Opponent disconnected`);
+                this.pDialogHeader = 'Opponent disconnected';
+                this.pDialogMessage = 'Your opponent has disconnected. You will be redirected to the problems page...';
+                this.visible = true;
+            });
+            this.websocketService.listen('opponent-passed-some-test-cases').subscribe((response) => {
+                this.pDialogHeader = 'Opponent passed some test cases';
+                this.pDialogMessage = response as string;
+                this.visible = true;
+            });
+            this.websocketService.listen('opponent-passed-all-test-cases').subscribe((response) => {
+                this.pDialogHeader = 'You Lost';
+                this.pDialogMessage = response as string;
+                this.visible = true;
+            });
         }else {
             this.questionService.getQuestionsById(this.problemId)
             .subscribe({
@@ -94,6 +113,16 @@ export class ProblemPageComponent {
         this.dataService.testCases$.subscribe((testCases) => {
             this.isAllTestCasesPassed = testCases.every((testCase: any) => testCase.isPassed);
             this.testCaseLength = testCases.length;
+            if (this.problemId === 'compete-online') {
+                if (this.isAllTestCasesPassed) {
+                    this.websocketService.emit('all-test-cases-passed', 'All test cases passed');
+                    this.pDialogHeader = 'You Won';
+                    this.pDialogMessage = 'You have passed all test cases. You won the competition';
+                    this.visible = true;
+                }else {
+                    this.websocketService.emit('some-test-cases-passed', `Your opponent has passed ${testCases.filter((testCase: any) => testCase.isPassed).length} test cases out of ${testCases.length}`);
+                }
+            }
         });
         this.dataService.cpuTime$.subscribe((cpuTime) => {
             this.runtime = cpuTime;
@@ -120,5 +149,9 @@ export class ProblemPageComponent {
     }
     getIsTestcase() {
         return this.isTestcase$;
+    }
+    redirectToProblems() {
+        // redirect to problems page and refresh the page
+        this.router.navigate(['/problems']);
     }
 }
